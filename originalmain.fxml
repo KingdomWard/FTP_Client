@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" style="-fx-font-family: 'Helvetica'; -fx-font-size: 12px;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar fx:id="mainMenuBar">
+        <menus>
+          <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="fileAdmin" mnemonicParsing="false" text="Admin" />
+                  <MenuItem fx:id="fileLogout" mnemonicParsing="false" text="Logout" />
+              <MenuItem fx:id="fileClose" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane prefHeight="322.0" prefWidth="552.0">
+         <children>
+            <TreeTableView fx:id="ftable" prefHeight="322.0" prefWidth="578.0">
+              <columns>
+                <TreeTableColumn fx:id="box" prefWidth="34.0" text="Box" />
+                <TreeTableColumn fx:id="fname" prefWidth="250.0" text="Filename" />
+                  <TreeTableColumn fx:id="fsize" prefWidth="62.0" text="Filesize" />
+                  <TreeTableColumn fx:id="ftype" prefWidth="61.0" text="Filetype" />
+                  <TreeTableColumn fx:id="dadded" prefWidth="96.0" text="Date Added" />
+                  <TreeTableColumn fx:id="download" prefWidth="75.0" text="Download" />
+              </columns>
+            </TreeTableView>
+            <Slider fx:id="scroller" layoutX="578.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="322.0" prefWidth="22.0" />
+         </children></AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="uploadButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" text="Upload" />
+            <Button fx:id="deleteButton" layoutX="531.0" layoutY="13.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="shareButton" layoutX="465.0" layoutY="13.0" mnemonicParsing="false" text="Share" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
