@@ -1,0 +1,21 @@
+ftpmain.fxml info
+
+fxid's:
+
+MenuBar: mainMenuBar
+Menu File: menuFile
+File Admin: fileAdmin
+File Logout: fileLogout
+File Close: fileClose
+Box Column: box
+Column Table: ftable
+Filename Column: fname
+Filesize Column: fsize
+Filetype Column: ftype
+DateAdded Column: dadded
+Download Column: download
+Upload Button: uploadButton
+Share Button: shareButton
+Delete Button: deleteButton
+
+DIMENSIONS(Width x Height): 600 x 430
