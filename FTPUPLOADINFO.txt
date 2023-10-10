@@ -1,0 +1,8 @@
+ftpupload info
+
+
+fxid's
+
+File Path Text Field: fileField
+Upload Button: uploadButton
+Close Button: uploadClose

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="132.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.foo.Ftpupload">
+   <children>
+      <Label layoutX="14.0" layoutY="35.0" text="File Path" />
+      <TextField fx:id="fileField" layoutX="72.0" layoutY="31.0" prefHeight="26.0" prefWidth="204.0" />
+      <Button fx:id="uploadButton" layoutX="72.0" layoutY="70.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="Upload" />
+      <Button fx:id="uploadClose" layoutX="174.0" layoutY="71.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Close" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="202.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="66.0" layoutY="48.0" text="Username" />
+      <Label layoutX="67.0" layoutY="85.0" text="Password" />
+      <TextField fx:id="userField" layoutX="130.0" layoutY="44.0" prefHeight="26.0" prefWidth="176.0" />
+      <TextField fx:id="passField" layoutX="130.0" layoutY="81.0" prefHeight="26.0" prefWidth="176.0" />
+      <Button fx:id="userCreate" layoutX="130.0" layoutY="121.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Create User" />
+      <Button fx:id="userDelete" layoutX="222.0" layoutY="121.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Delete User" />
+      <Button fx:id="adminClose" layoutX="194.0" layoutY="155.0" mnemonicParsing="false" text="Close" />
+   </children>
+</AnchorPane>
