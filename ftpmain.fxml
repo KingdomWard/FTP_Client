@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.07788944723618091, 0.8567839195979899" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+      <MenuBar prefHeight="0.0" prefWidth="598.0">
+          <menus>
+              <Menu mnemonicParsing="false" text="File">
+                  <items>
+                      <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+              </Menu>
+          </menus>
+      </MenuBar>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+         <children>
+            <TreeTableView layoutY="-8.0" prefHeight="315.0" prefWidth="579.0">
+              <columns>
+                  <TreeTableColumn minWidth="0.0" prefWidth="41.0" text="Box" />
+                <TreeTableColumn prefWidth="216.0" text="FileName" />
+                <TreeTableColumn minWidth="0.0" prefWidth="68.0" text="FileSize" />
+                  <TreeTableColumn prefWidth="61.0" text="File Type" />
+                  <TreeTableColumn minWidth="8.0" prefWidth="117.0" text="Date Added" />
+                  <TreeTableColumn prefWidth="75.0" text="Download" />
+              </columns>
+            </TreeTableView>
+             <ScrollBar layoutX="579.0" layoutY="23.0" orientation="VERTICAL" prefHeight="280.0" prefWidth="20.0" />
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+         <children>
+            <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="89.0" text="Upload" />
+            <Button layoutX="426.0" layoutY="17.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="Delete" />
+            <Button layoutX="511.0" layoutY="17.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="Share" />
+         </children></AnchorPane>
+
+  </items>
+</SplitPane>
