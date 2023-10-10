@@ -15,8 +15,6 @@ public class FXMLSceneController {
     private static final List<Scene> cachedScenes = new ArrayList<>();
     private static final List<String> cachedFiles = new ArrayList<>();
 
-    private static boolean isInitialized = false;
-
     public static void init(Stage primaryStage, String windowTitle, String filename) throws Exception {
         FXMLSceneController.primaryStage = primaryStage;
 
@@ -28,19 +26,14 @@ public class FXMLSceneController {
 
         // Show the stage
         primaryStage.show();
-
-        isInitialized = true;
     }
 
-    public static void swapScene(String filename) throws Exception {
-        if (!isInitialized) throw new Exception("Call Init before accessing");
+    public static void swapScene(String filename) throws IOException {
         Scene scene = getFXMLScene(filename);
         primaryStage.setScene(scene);
     }
 
-    private static Scene getFXMLScene(String filename) throws Exception {
-        if (!isInitialized) throw new Exception("Call Init before accessing");
-
+    private static Scene getFXMLScene(String filename) throws IOException {
         if (!filename.endsWith(".fxml"))
             filename += ".fxml";
 
