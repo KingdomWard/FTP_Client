@@ -1,0 +1,10 @@
+ftpadmin info
+
+
+fxid's
+
+Username Text Field: userField
+Password Text Field: passField
+Create User Button: userCreate
+Delete User Button: userDelete
+Close Button: adminClose
