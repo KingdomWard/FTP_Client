@@ -2,6 +2,7 @@ package Utility;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,5 +56,22 @@ public class FXMLSceneController {
         cachedFiles.add(filename);
 
         return scene;
+    }
+
+    private static void createPopUp(String filename) throws IOException {
+        // Create a new stage for the secondary window
+        Stage secondaryStage = new Stage();
+        secondaryStage.setTitle("Secondary Window");
+
+        Scene scene = getFXMLScene(filename);
+
+        // Set the scene for the secondary stage
+        secondaryStage.setScene(scene);
+
+        // Set modality (optional) - Modality.WINDOW_MODAL, Modality.APPLICATION_MODAL, or Modality.NONE
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+
+        // Show the secondary window
+        secondaryStage.show();
     }
 }
