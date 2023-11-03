@@ -71,9 +71,9 @@ public class FTPClientHandler extends FTPClient {
      * @throws IOException if the file is not found
      */
     public void storeFile(File file) throws IOException {
-        if (file.getName().endsWith(".png")) {
+        //if (file.getName().endsWith(".png")) {
             super.setFileType(FTP.BINARY_FILE_TYPE);
-        }
+        //}
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(file);
@@ -119,9 +119,9 @@ public class FTPClientHandler extends FTPClient {
      * @throws IOException if the file is not found
      */
     public void downloadFile(String fname, String fid, OutputStream fos) throws IOException {
-        if (fname.endsWith(".png")) {
+        //if (fname.endsWith(".png")) {
             super.setFileType(FTP.BINARY_FILE_TYPE);
-        }
+        //}
         super.changeWorkingDirectory(fid);
         boolean success = super.retrieveFile(fname, fos);
         fos.close();

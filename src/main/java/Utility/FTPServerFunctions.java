@@ -114,7 +114,7 @@ public class FTPServerFunctions {
 
         // FTP Portion
         ftpClient.login();
-        ftpClient.enterLocalPassiveMode(); // Bypass the 500 Port Error, may differ on school wifi.. Let's check.
+        //ftpClient.enterLocalPassiveMode(); // Bypass the 500 Port Error, may differ on school wifi.. Let's check.
         String dir = Integer.toString(fileid);
 
         ftpClient.createDirectory(dir);
@@ -130,12 +130,16 @@ public class FTPServerFunctions {
      * @throws SQLException when something goes wrong with the sql database or with the sql statement
      */
     public void fileShare(FileItem file, String user) throws SQLException{
-        String fid = file.getFid();
-        String query = "Insert into users.ftpfile_share(fileID,userID) values (" + fid + ",'" + user + "')";
-        Connection conn = DBConnection.getConnection();
-        Statement st = conn.createStatement();
-        st.executeUpdate(query);
-        st.close();
+        if(file.getFowner() != username) {
+            System.out.println("Error... cannot share file - current user is not file owner.");
+        } else {
+            String fid = file.getFid();
+            String query = "Insert into users.ftpfile_share(fileID,userID) values (" + fid + ",'" + user + "')";
+            Connection conn = DBConnection.getConnection();
+            Statement st = conn.createStatement();
+            st.executeUpdate(query);
+            st.close();
+        }
     }
 
     /**
@@ -172,7 +176,7 @@ public class FTPServerFunctions {
 
         // FTP Portion
         ftpClient.login();
-        ftpClient.enterLocalPassiveMode();
+        //ftpClient.enterLocalPassiveMode();
         ftpClient.deleteFile(fname, fid);
         ftpClient.logout();
     }
@@ -180,7 +184,7 @@ public class FTPServerFunctions {
     // ftp download file
     public static void downloadFile(FileItem file, OutputStream fos) throws Exception {
         ftpClient.login();
-        ftpClient.enterLocalPassiveMode();
+        //ftpClient.enterLocalPassiveMode();
         ftpClient.downloadFile(file.getFname(), file.getFid(), fos);
         ftpClient.logout();
     }
