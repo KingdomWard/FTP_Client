@@ -1,12 +1,9 @@
 package fxmlControllers;
 
 import Exceptions.UserAlreadyExists;
-
 import Utility.FTPServerFunctions;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.apache.commons.net.ftp.FTP;
 
 import java.sql.SQLException;
 
