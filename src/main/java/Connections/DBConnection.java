@@ -14,7 +14,7 @@ public class DBConnection {
     private final static String GUEST_USERNAME;
     private final static String GUEST_PASSWORD;
 
-    // get database info for guest account / database url and access it
+    // Gathers the database info from the properties file
     static {
         properties = new PropertiesLoader("database");
         GUEST_USERNAME = properties.getProperty("db.guest_username");

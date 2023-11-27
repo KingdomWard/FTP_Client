@@ -34,6 +34,8 @@ public class FTPMain implements Initializable {
     private TreeTableColumn<Item, String> fsize;
     @FXML
     private TreeTableColumn<Item, String> dadded;
+    @FXML
+    private TreeTableColumn<Item, String> fowner;
 
     @FXML
     private Button uploadButton;
@@ -49,11 +51,16 @@ public class FTPMain implements Initializable {
         initializeScene();
     }
 
+
+    /**
+     * Initializes the scene
+     */
     public void initializeScene()
     {
         // Set cell value factories
         fname.setCellValueFactory(new TreeItemPropertyValueFactory<>("fname"));
         fsize.setCellValueFactory(new TreeItemPropertyValueFactory<>("fsize"));
+        fowner.setCellValueFactory(new TreeItemPropertyValueFactory<>("fowner"));
         dadded.setCellValueFactory(new TreeItemPropertyValueFactory<>("dadded"));
 
         try {
@@ -83,7 +90,12 @@ public class FTPMain implements Initializable {
             e.printStackTrace();}
     }
 
-    // Helper method to generate TreeItems from the data list
+    /**
+     * Generates TreeItems from the data list
+     * @param data the list of items to be added to the tree
+     * @param RootFolder the root folder of the tree
+     * @return the root of the tree
+     */
     private TreeItem<Item> generateTreeItems(List<Item> data, Folder RootFolder) {
         TreeItem<Item> root = new TreeItem<>(RootFolder);
         data.forEach(item -> {
@@ -95,6 +107,10 @@ public class FTPMain implements Initializable {
         return root;
     }
 
+    /**
+     * Handles the upload button
+     * @throws Exception if the file is not found
+     */
     @FXML
     private void handleUpload() throws Exception {
         // This gets the OS File Explorer
@@ -115,6 +131,11 @@ public class FTPMain implements Initializable {
         initializeScene();
     }
 
+    /**
+     * Handles the delete button
+     * @throws SQLException if the file is not found in DB
+     * @throws IOException if the file is not found in tree
+     */
     @FXML
     private void handleDelete() throws SQLException, IOException {
         // Whatever the user has selected
@@ -130,6 +151,10 @@ public class FTPMain implements Initializable {
         selectedFile.getParent().getChildren().remove(selectedFile);
     }
 
+    /**
+     * Handles the download button
+     * @throws Exception if the file is not found or null
+     */
     @FXML
     private void handleDownload() throws Exception {
         // Whatever the user has selected
@@ -159,12 +184,21 @@ public class FTPMain implements Initializable {
         initializeScene();
     }
 
+    /**
+     * Handles the admin button
+     * @throws IOException if the file is not found
+     * @throws SQLException if the file is not found
+     */
     @FXML
     public void handleFileAdmin() throws IOException, SQLException {
         if(FTPServerFunctions.isUserAdmin())
             FXMLSceneController.createPopUp("FTPAdmin.fxml", "Admin");
     }
 
+    /**
+     * Handles the logout button
+     * @throws IOException if the file is not found
+     */
     @FXML
     public void handleFileLogout() throws IOException
     {
@@ -172,6 +206,10 @@ public class FTPMain implements Initializable {
         FTPServerFunctions.clearUsername();
     }
 
+    /**
+     * Handles the share button
+     * @throws IOException if the file is not found
+     */
     @FXML
     public void handleShareButton() throws IOException
     {
@@ -187,7 +225,10 @@ public class FTPMain implements Initializable {
     }
 
 
-    //Executes searchFile() when enter is pressed in search field
+    /**
+     * Handles the search button
+     * @param event the key event
+     */
     @FXML
     private void handleKeyPress(KeyEvent event)
     {
@@ -197,13 +238,20 @@ public class FTPMain implements Initializable {
         }
     }
 
-    //Searches for file and selects it
+    /**
+     * Handles the search button
+     */
     @FXML
     private void handleSearch() {
         String searchString = searchField.getText().toLowerCase();
         searchAndSelectItem(ftable.getRoot(), searchString);
     }
 
+    /**
+     * Searches for the item with the specified name and selects it
+     * @param root the root of the tree
+     * @param searchString the name of the item to search for
+     */
     private void searchAndSelectItem(TreeItem<Item> root, String searchString) {
         root.setExpanded(true); // Expand all nodes for better visibility
 

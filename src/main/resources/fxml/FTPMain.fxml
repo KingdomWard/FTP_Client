@@ -33,7 +33,7 @@
                     <columns>
                       <TreeTableColumn fx:id="fname" minWidth="0.0" prefWidth="400.0" text="Filename" />
                         <TreeTableColumn fx:id="fsize" minWidth="0.0" prefWidth="70.0" text="Filesize" />
-                        <TreeTableColumn minWidth="0.0" prefWidth="100.0" text="File Owner" />
+                        <TreeTableColumn fx:id='fowner' minWidth="0.0" prefWidth="100.0" text="File Owner" />
                         <TreeTableColumn fx:id="dadded" minWidth="0.0" prefWidth="250.0" text="Date Added" />
                     </columns>
                      <columnResizePolicy>

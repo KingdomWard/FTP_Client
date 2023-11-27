@@ -47,6 +47,9 @@ public class Folder implements Item{
     }
 
     @Override
+    public String getFowner() {return null;}
+
+    @Override
     public String getFsize() {
         return null;
     }

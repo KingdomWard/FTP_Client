@@ -27,6 +27,11 @@ public class FTPShare implements Initializable
     private FileItem file;
 
 
+    /**
+     * Initializes the scene
+     * @param url the url of the scene
+     * @param resourceBundle the resource bundle of the scene
+     */
     @SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -40,6 +45,10 @@ public class FTPShare implements Initializable
         userTable.setRoot(userRoot);
     }
 
+    /**
+     * Shares the file with the selected user
+     * @throws SQLException if the user does not exist
+     */
     @FXML
     private void handleShare() throws SQLException {
         TreeItem<String> selectedUser = userTable.getSelectionModel().getSelectedItem();
@@ -49,6 +58,10 @@ public class FTPShare implements Initializable
         }
     }
 
+    /**
+     * Sets the file to be shared
+     * @param file the file to be shared
+     */
     public void setFile(FileItem file)
     {
         this.file = file;

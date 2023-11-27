@@ -6,6 +6,7 @@ import java.sql.*;
 import Connections.DBConnection;
 import Entities.FileItem;
 import Exceptions.UserAlreadyExists;
+import lombok.Getter;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 public class FTPServerFunctions {
 
     public static FTPClientHandler ftpClient;
+    // Return username
+    @Getter
     private static String username;
     private static FileItem sharedfile;
 
@@ -57,7 +60,6 @@ public class FTPServerFunctions {
 
     /**
      * Gets the user's list of files.
-     *
      * @return {@link ArrayList} containing {@link FileItem}
      * @throws SQLException when sql query is incorrect or some sql error occurs
      */
@@ -89,8 +91,7 @@ public class FTPServerFunctions {
     }
 
     /**
-     * Gets the a list of files shared with the user.
-     *
+     * Gets a list of files shared with the user.
      * @return {@link ArrayList} containing {@link FileItem}
      * @throws SQLException when sql query is incorrect or some sql error occurs
      */
@@ -115,9 +116,6 @@ public class FTPServerFunctions {
                 String fOwner = rs1.getString("fileOwner");
                 String fsize = String.format("%.2f MB", fizeSizeInMb);
 
-
-                //System.out.println("FileID: " + fid1 + " FileName: " + fName1 + " FileSize: " + fsize1 + " FileUpload: " + fUpload1);
-
                 FileItem file = new FileItem(fName, fsize, fid, fOwner, fUpload);
                 fileList.add(file);
             }
@@ -135,11 +133,13 @@ public class FTPServerFunctions {
      * @throws SQLException when something goes wrong with the sql database or with the sql statement
      */
     public static void uploadFileInfo(FileItem file, File fileFTP) throws SQLException, IOException {
-        // SQL / Database Portion
+
+        // SQL , Establish Connection & Insert File Info
         String query = "Select coalesce(max(fileid), 0)+1 as fid from users.ftpfile;";
         Connection conn = DBConnection.getConnection();
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(query);
+
         int fileid = 0;
         if (rs.next()) {
             fileid = rs.getInt("fid");
@@ -162,9 +162,8 @@ public class FTPServerFunctions {
         st.close();
         rs.close();
 
-        // FTP Portion
+        // FTP Login & Upload
         ftpClient.login();
-        //ftpClient.enterLocalPassiveMode(); // Bypass the 500 Port Error, may differ on school wifi.. Let's check.
         String dir = Integer.toString(fileid);
 
         ftpClient.createDirectory(dir);
@@ -174,7 +173,7 @@ public class FTPServerFunctions {
     }
 
     /**
-     *
+     * Share a file with a selected user.
      * @param user the userid of the user
      * @throws SQLException when something goes wrong with the sql database or with the sql statement
      */
@@ -191,15 +190,15 @@ public class FTPServerFunctions {
             query = "Insert into users.ftpfile_share(fileID,userID) values (" + fid + ",'" + user + "')";
             st.executeUpdate(query);
             st.close();
-        } else {
+        }
+        else {
             System.out.println("Error.... Cannot share file with the file owner.");
         }
         rs.close();
     }
 
     /**
-     * deletes a file from the database
-     *
+     * Deletes a file from the database
      * @param file the file's info
      * @throws SQLException when something goes wrong with the sql database or with the sql statement
      * @throws IOException when something goes wrong with the deletion of a file from the ftp server
@@ -224,6 +223,7 @@ public class FTPServerFunctions {
             query = "Delete from users.ftpfile where fileID = " + fid;
             st.executeUpdate(query);
             rs.close();
+
             // FTP Portion
             ftpClient.login();
             ftpClient.deleteFile(fname, fid);
@@ -238,7 +238,6 @@ public class FTPServerFunctions {
 
     /**
      * Downloads a file from the ftp server
-     *
      * @param file the file's info
      * @param fos the file output stream for download
      * @throws Exception when something goes wrong with the deletion of a file from the ftp server
@@ -251,8 +250,7 @@ public class FTPServerFunctions {
 
 
     /**
-     * creates a new user account in the database
-     *
+     * Creates a new user account in the database
      * @param user the userid to be added to the new user
      * @param pass the password to be added for the new user
      * @param admin this is a boolean flag that either enables the new user to be an admin or not
@@ -265,16 +263,16 @@ public class FTPServerFunctions {
         String query = "Select * from users.ftpuser where userid = '" + user + "'";
         ResultSet rs = st.executeQuery(query);
 
-        if(rs.next()) {
-
-
+        if(rs.next()) { // If user exists... throw error
             throw new UserAlreadyExists("User Already Exists");
-        } else {
+        }
+        else { // Else add user to database
             if(admin) {
                 query = "INSERT INTO users.ftpuser (userid, passwd, uid, gid, homedir, shell, admin, status)" +
                         " VALUES ('" + user +
                         "', ENCRYPT('" + pass + "'), " + 500 + ", " + 500 + ", '/mnt/userDir', '/sbin/nologin', 'x', 'Active')";
-            } else {
+            }
+            else {
                 query = "INSERT INTO users.ftpuser (userid, passwd, uid, gid, homedir, shell, status)" +
                         " VALUES ('" + user +
                         "', ENCRYPT('" + pass + "'), " + 500 + ", " + 500 + ", '/mnt/userDir', '/sbin/nologin' ,'Active')";
@@ -286,8 +284,7 @@ public class FTPServerFunctions {
     }
 
     /**
-     * deactivates a user in the system
-     *
+     * Deactivates a user in the system
      * @param user the userid of the user to be deactivated
      * @throws SQLException when something goes wrong with the sql database or with the sql statement
      */
@@ -299,7 +296,8 @@ public class FTPServerFunctions {
 
         if(!rs.next()) {
             System.out.println("Error... user does not exist.");
-        } else {
+        }
+        else {
             query = "update users.ftpuser set status = 'Inactive' where userid = '" + user + "'";
             st.executeUpdate(query);
         }
@@ -308,7 +306,7 @@ public class FTPServerFunctions {
     }
 
     /**
-     * gets a list of all users that a file can be shared with
+     * Gets a list of all users that a file can be shared with
      * @return {@link ArrayList} containing {@link FileItem}
      * @throws SQLException when something goes wrong with the sql database or with the sql statement
      */
@@ -329,7 +327,7 @@ public class FTPServerFunctions {
     }
 
     /**
-     * returns if the current user is an admin or not
+     * Returns if the current user is an admin or not
      * @return boolean
      * @throws SQLException when something goes wrong with the sql database or with the sql statement
      */
@@ -340,11 +338,10 @@ public class FTPServerFunctions {
         ResultSet rs = st.executeQuery(query);
         if(rs.next())  return true;
         else return false;
-
     }
 
     /**
-     * reactivates an account that has been deactivated
+     * Reactivates an account that has been deactivated
      * @param user the userid of the account to be reactivated
      * @throws SQLException when something goes wrong with the sql database or with the sql statement
      */
@@ -363,17 +360,17 @@ public class FTPServerFunctions {
         st.close();
 
     }
-
-    // Return username
-    public static String getUsername() {
-        return username;
-    }
-
+    /**
+     * Clears the username
+     */
     public static void clearUsername()
     {
         username = null;
     }
-
+    /**
+     * Sets the file to be shared
+     * @param fileitem the file to be shared
+     */
     public static void setFile(FileItem fileitem)
     {
         sharedfile = fileitem;

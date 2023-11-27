@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,11 +30,22 @@ public class FXMLSceneController {
         primaryStage.show();
     }
 
+    /**
+     * Swaps the current scene with the scene specified by the filename
+     * @param filename the name of the fxml file to load
+     * @throws IOException if the file is not found
+     */
     public static void swapScene(String filename) throws IOException {
         Scene scene = loadFXMLScene(filename);
         primaryStage.setScene(scene);
     }
 
+    /**
+     * Loads the fxml file specified by the filename
+     * @param filename the name of the fxml file to load
+     * @return the scene loaded from the fxml file
+     * @throws IOException if the file is not found
+     */
     private static Scene loadFXMLScene(String filename) throws IOException {
         if (!filename.endsWith(".fxml"))
             filename += ".fxml";
@@ -49,6 +58,12 @@ public class FXMLSceneController {
         return new Scene(FXMLLoader.load(Objects.requireNonNull(resourceUrl)));
     }
 
+    /**
+     * Creates a pop-up window with the specified fxml file
+     * @param filename the name of the fxml file to load
+     * @param windowName the name of the window
+     * @throws IOException if the file is not found
+     */
     public static void createPopUp(String filename, String windowName) throws IOException {
         // Create a new stage for the secondary window
         Stage secondaryStage = new Stage();

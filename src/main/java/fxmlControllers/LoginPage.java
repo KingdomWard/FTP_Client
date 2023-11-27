@@ -23,6 +23,10 @@ public class LoginPage {
     @FXML
     private Label errorLabel; // The Label for displaying the error message
 
+    /**
+     * Handles the login button being pressed
+     * @throws Exception if the connection fails
+     */
     @FXML
     private void handleLogin() throws Exception {
         FTPServerFunctions.ftpClient = null;
@@ -30,6 +34,11 @@ public class LoginPage {
         String username = usernameInput.getText();
         String password = passwordInput.getText();
 
+        // If username or password is empty, show error
+        if (username.isEmpty() || password.isEmpty()) {
+            showError("Please enter a username and password");
+            return;
+        }
 
         // try logging in and check if it failed
         if (!FTPServerFunctions.setupConnection(username, password))
@@ -37,6 +46,10 @@ public class LoginPage {
         else FXMLSceneController.swapScene("FTPMain");
     }
 
+    /**
+     * Handles the create account button being pressed
+     * @throws IOException if the connection fails
+     */
     @FXML
     private void handleAccountCreate() throws IOException {
         FTPServerFunctions.ftpClient = null;
@@ -45,8 +58,13 @@ public class LoginPage {
         String username = usernameInput.getText();
         String password = passwordInput.getText();
 
-        try{
+        // If username or password is empty, show error
+        if (username.isEmpty() || password.isEmpty()) {
+            showError("Please enter a username and password");
+            return;
+        }
 
+        try{
             FTPServerFunctions.addUser(username, password, false);
 
             // try logging in and check if it failed
@@ -75,6 +93,11 @@ public class LoginPage {
         errorLabel.setText(message);
     }
 
+    /**
+     * Handles the key press event
+     * @param event the key event
+     * @throws Exception if the connection fails from the handleLogin method
+     */
     @FXML
     private void handleKeyPress(KeyEvent event) throws Exception {
         if (event.getCode().equals(KeyCode.TAB)) {

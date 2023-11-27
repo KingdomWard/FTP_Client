@@ -59,7 +59,7 @@ public class FTPClientHandler extends FTPClient {
      * @throws IOException if the server is not found
      */
     public void togglePassiveMode() throws IOException {
-        super.listFiles(); // this is a hack to get the server to respond with 500
+        super.listFiles();
         if(super.getReplyCode() == 500) {
             super.enterLocalPassiveMode();
         }
