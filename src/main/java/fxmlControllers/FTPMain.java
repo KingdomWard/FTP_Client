@@ -45,6 +45,8 @@ public class FTPMain implements Initializable {
     private Menu menuAdmin;
     @FXML
     private TextField searchField;
+    @FXML
+    private Label errorDisplay;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -271,7 +273,10 @@ public class FTPMain implements Initializable {
         }
     }
 
-
+    private void displayError(String errorMessage)
+    {
+        errorDisplay.setText(errorMessage);
+    }
 }
 
 

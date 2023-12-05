@@ -1,3 +1,5 @@
+package edu.usc.team2.jfx;
+
 import Utility.FXMLSceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
